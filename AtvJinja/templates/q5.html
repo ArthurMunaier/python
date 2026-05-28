@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block title %}Exercício 5{% endblock %}
+{% block content %}
+<ul>
+    {% for aluno in notas %}
+        <li>
+            {{ aluno.nome }} - 
+            {{ aluno.notas }} - 
+            {% if aluno.notas >= 7 %}
+                Aprovado
+            {% else %}
+                Reprovado
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

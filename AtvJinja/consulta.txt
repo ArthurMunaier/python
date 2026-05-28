@@ -1,0 +1,116 @@
+Usadas para exibir dados no HTML.
+
+<p>Nome: {{ nome }}</p>
+<p>Idade: {{ idade }}</p>
+
+
+------------------------
+Acessando dicionário:
+
+<p>{{ aluno.nome }}</p>
+<p>{{ aluno["nota"] }}</p>
+
+
+{% for aluno in alunos %}
+    <p>{{ aluno.nome }}</p>
+{% endfor %}
+
+
+{% for aluno in alunos %}
+    <p>{{ loop.index }} - {{ aluno.nome }}</p>
+{% endfor %}
+
+loop.index → começa em 1
+loop.index0 → começa em 0
+loop.first → primeiro item
+loop.last → último item
+
+----- Condicional--------------
+{% if nota >= 7 %}
+    <p>Aprovado</p>
+{% else %}
+    <p>Reprovado</p>
+{% endif %}
+
+{% if nota >= 9 %}
+    Excelente
+{% elif nota >= 7 %}
+    Aprovado
+{% else %}
+    Reprovado
+{% endif %}
+
+
+------------------------
+Estrutura:
+
+{% block nome_bloco %}
+    Código
+{% endblock %}
+
+-----------------
+Herança de Templates
+Na base (pai)é assim
+<!-- base.html -->
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>
+
+O filho 
+{% extends 'base.html' %}
+
+{% block title %}
+Página Inicial
+{% endblock %}
+
+{% block content %}
+Conteúdo aqui
+{% endblock %}
+
+--------------------------
+
+Reutilizar Template
+{% include "header.html" %}
+
+<main> ... </main>
+
+{% include "footer.html" %}
+
+--------------------------
+Filtros básicos:
+{{ nome | lower }} → minúsculo
+{{ nome | upper }} → maiúsculo
+{{ lista | length }} → quantidade de itens
+{{ lista | join(", ") }} → unir itens com vírgula e espaço
+{{ nome | replace("a", "@") }} → substituir caracteres
+{{ lista | sort }} → ordenar itens
+
+--------------------------
+Variáveis em Jinja2
+{{ minha_variavel }} → exibe valor
+
+--------------------------------
+Operadores em Jinja2:
+{{ 1 + 2 }}
+{{ 5 * 2 }}
+{{ 10 / 2 }}
+{{ 10 % 3 }}
+{{ 2 ** 3 }}
+
+
+--------------
+Comentários em Jinja2
+{% # isso é um comentário %}
+
+--------------------
+Arquivos
+
+statics:
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<img src="{{ url_for('static', filename='imagem.png') }}">  
