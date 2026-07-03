@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block conteudo %}
+
+<h2>Editar sala</h2>
+
+<form method="POST">
+    <label for="numero">Número da sala:</label>
+    <input type="number" id="numero" name="numero" value="{{ sala.numero }}" min="1" required>
+
+    <label for="capacidade">Capacidade:</label>
+    <input type="number" id="capacidade" name="capacidade" value="{{ sala.capacidade }}" min="1" required>
+
+    <button type="submit">Salvar alterações</button>
+</form>
+
+{% endblock %}
