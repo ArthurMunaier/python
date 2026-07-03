@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block conteudo %}
+
+<h2>Cadastrar sessão</h2>
+
+<form method="POST">
+    <label for="horario">Horário:</label>
+    <input type="time" id="horario" name="horario" required>
+
+    <label for="filme">Filme:</label>
+    <select id="filme" name="filme" required>
+        <option value="">Selecione um filme</option>
+
+        {% for filme in filmes %}
+        <option value="{{ filme.id }}">
+            {{ filme.titulo }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label for="sala">Sala:</label>
+    <select id="sala" name="sala" required>
+        <option value="">Selecione uma sala</option>
+
+        {% for sala in salas %}
+        <option value="{{ sala.id }}">
+            Sala {{ sala.numero }} — {{ sala.capacidade }} lugares
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+{% endblock %}
