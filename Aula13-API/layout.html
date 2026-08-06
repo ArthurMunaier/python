@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+    <div class="menu">
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('page1') }}">Marte</a></li>
+                <li><a href="{{ url_for('page2') }}">Espaço</a></li>
+                <li><a href="{{ url_for('page3') }}">Buraco Negro</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

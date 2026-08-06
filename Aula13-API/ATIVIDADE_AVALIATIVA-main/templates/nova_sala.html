@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block conteudo %}
+
+<h2>Cadastrar sala</h2>
+
+<form method="POST">
+    <label for="numero">Número da sala:</label>
+    <input type="number" id="numero" name="numero" min="1" required>
+
+    <label for="capacidade">Capacidade:</label>
+    <input type="number" id="capacidade" name="capacidade" min="1" required>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+{% endblock %}

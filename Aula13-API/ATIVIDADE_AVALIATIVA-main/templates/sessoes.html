@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block conteudo %}
+
+<div class="topo-pagina">
+    <h2>Sessões cadastradas</h2>
+
+    <a class="botao" href="{{ url_for('cinema.nova_sessao') }}">
+        Cadastrar sessão
+    </a>
+</div>
+
+{% if sessoes %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Filme</th>
+            <th>Sala</th>
+            <th>Horário</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for sessao in sessoes %}
+        <tr>
+            <td>{{ sessao.id }}</td>
+            <td>{{ sessao.filme.titulo }}</td>
+            <td>Sala {{ sessao.sala.numero }}</td>
+            <td>{{ sessao.horario }}</td>
+            <td>
+                <a class="botao editar" href="{{ url_for('cinema.editar_sessao', id=sessao.id) }}">
+                    Editar
+                </a>
+
+                <a
+                    class="botao excluir"
+                    href="{{ url_for('cinema.excluir_sessao', id=sessao.id) }}"
+                    onclick="return confirm('Deseja realmente excluir esta sessão?')"
+                >
+                    Excluir
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nenhuma sessão cadastrada.</p>
+{% endif %}
+
+{% endblock %}
