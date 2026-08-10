@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block conteudo %}
+
+<h2>Editar sessão</h2>
+
+<form method="POST">
+    <label for="horario">Horário:</label>
+    <input type="time" id="horario" name="horario" value="{{ sessao.horario }}" required>
+
+    <label for="filme">Filme:</label>
+    <select id="filme" name="filme" required>
+        {% for filme in filmes %}
+        <option
+            value="{{ filme.id }}"
+            {% if filme.id == sessao.filme_id %}selected{% endif %}
+        >
+            {{ filme.titulo }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label for="sala">Sala:</label>
+    <select id="sala" name="sala" required>
+        {% for sala in salas %}
+        <option
+            value="{{ sala.id }}"
+            {% if sala.id == sessao.sala_id %}selected{% endif %}
+        >
+            Sala {{ sala.numero }} — {{ sala.capacidade }} lugares
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Salvar alterações</button>
+</form>
+
+{% endblock %}

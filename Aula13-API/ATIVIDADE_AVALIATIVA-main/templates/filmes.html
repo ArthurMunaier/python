@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block conteudo %}
+
+<div class="topo-pagina">
+    <h2>Filmes cadastrados</h2>
+
+    <a class="botao" href="{{ url_for('cinema.novo_filme') }}">
+        Cadastrar filme
+    </a>
+</div>
+
+{% if filmes %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Gênero</th>
+            <th>Duração</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for filme in filmes %}
+        <tr>
+            <td>{{ filme.id }}</td>
+            <td>{{ filme.titulo }}</td>
+            <td>{{ filme.genero }}</td>
+            <td>{{ filme.duracao }} min</td>
+            <td>
+                <a class="botao editar" href="{{ url_for('cinema.editar_filme', id=filme.id) }}">
+                    Editar
+                </a>
+
+                <a
+                    class="botao excluir"
+                    href="{{ url_for('cinema.excluir_filme', id=filme.id) }}"
+                    onclick="return confirm('Deseja realmente excluir este filme?')"
+                >
+                    Excluir
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nenhum filme cadastrado.</p>
+{% endif %}
+
+{% endblock %}
