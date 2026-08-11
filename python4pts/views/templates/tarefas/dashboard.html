@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block title %}Minhas tarefas{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-info d-flex align-items-start gap-2">
+    <i class="bi bi-quote fs-4"></i>
+    <div>
+        <div class="fst-italic">"{{ frase }}"</div>
+        {% if frase_demo %}
+        <div class="small text-body-secondary">(frase padrão — não foi possível consultar a API externa agora)</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+    <h1 class="h3 mb-0">Minhas tarefas</h1>
+    <a href="{{ url_for('tarefas.nova_tarefa') }}" class="btn btn-success">
+        <i class="bi bi-plus-lg"></i> Nova tarefa
+    </a>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <label for="filtro-status" class="form-label">Filtrar por status</label>
+        <select id="filtro-status" class="form-select" data-usuario-logado="1">
+            <option value="" {{ 'selected' if not status_filtro else '' }}>Todas</option>
+            {% for opcao in status_opcoes %}
+            <option value="{{ opcao }}" {{ 'selected' if status_filtro == opcao else '' }}>
+                {{ status_labels[opcao] }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div id="lista-tarefas" class="row g-3">
+    {% for tarefa in tarefas %}
+    <div class="col-md-6 col-lg-4" data-tarefa-card="{{ tarefa.id }}">
+        <div class="card h-100 border-{{ status_cores[tarefa.status] }} shadow-sm">
+            <div class="card-header bg-{{ status_cores[tarefa.status] }} bg-opacity-25 d-flex justify-content-between align-items-center">
+                <span class="badge text-bg-{{ status_cores[tarefa.status] }}">{{ status_labels[tarefa.status] }}</span>
+                <small class="text-body-secondary">#{{ tarefa.id }}</small>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ tarefa.titulo }}</h5>
+                <p class="card-text">{{ tarefa.descricao or "Sem descrição." }}</p>
+            </div>
+            <div class="card-footer bg-transparent d-flex justify-content-between">
+                <a href="{{ url_for('tarefas.editar', tarefa_id=tarefa.id) }}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-pencil-square"></i> Editar
+                </a>
+                <div class="d-flex gap-2">
+                    {% if tarefa.status != 'concluida' %}
+                    <button type="button" class="btn btn-sm btn-outline-success btn-concluir" data-id="{{ tarefa.id }}" title="Marcar como concluída">
+                        <i class="bi bi-check-lg"></i>
+                    </button>
+                    {% endif %}
+                    <button type="button" class="btn btn-sm btn-outline-danger btn-excluir" data-id="{{ tarefa.id }}" title="Excluir">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-body-secondary fst-italic" id="mensagem-vazio">Nenhuma tarefa por aqui ainda. Crie a primeira!</p>
+    {% endfor %}
+</div>
+{% endblock %}

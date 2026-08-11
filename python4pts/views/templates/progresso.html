@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}Progresso{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Progresso das tarefas</h1>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h6 text-body-secondary">Tarefas por status (barras)</h2>
+                <canvas id="grafico-barras" height="220"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h6 text-body-secondary">Distribuição (pizza)</h2>
+                <canvas id="grafico-pizza" height="220"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="progresso-vazio" class="alert alert-secondary mt-4 d-none">
+    Você ainda não tem tarefas cadastradas. Crie algumas para ver o progresso aqui.
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/progresso.js') }}"></script>
+{% endblock %}

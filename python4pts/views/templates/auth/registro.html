@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}Criar conta{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 mb-3 text-center">Criar conta</h1>
+
+                {% if erro %}
+                <div class="alert alert-danger">{{ erro }}</div>
+                {% endif %}
+
+                <form method="POST" action="{{ url_for('auth.registro') }}">
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required value="{{ nome or '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" required value="{{ email or '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="senha" name="senha" required minlength="6">
+                        <div class="form-text">Mínimo de 6 caracteres.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmar_senha" class="form-label">Confirmar senha</label>
+                        <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-person-plus"></i> Criar conta
+                    </button>
+                </form>
+
+                <p class="text-center mt-3 mb-0">
+                    Já tem conta? <a href="{{ url_for('auth.login') }}">Entrar</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

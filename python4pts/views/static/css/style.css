@@ -1,0 +1,22 @@
+body {
+    min-height: 100vh;
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+#btn-modo-escuro i {
+    pointer-events: none;
+}
+
+/* Pequena transição suave ao trocar entre modo claro/escuro (item 9) */
+body,
+.card,
+.navbar {
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+[data-tarefa-card] {
+    transition: opacity 0.2s ease;
+}

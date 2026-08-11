@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}{{ titulo_pagina }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 mb-3">{{ titulo_pagina }}</h1>
+
+                {% if erro %}
+                <div class="alert alert-danger">{{ erro }}</div>
+                {% endif %}
+
+                <form method="POST"
+                      action="{% if tarefa_id %}{{ url_for('tarefas.editar', tarefa_id=tarefa_id) }}{% else %}{{ url_for('tarefas.nova_tarefa') }}{% endif %}">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo" required
+                               value="{{ tarefa_titulo or '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="descricao" name="descricao" rows="4">{{ tarefa_descricao or '' }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="status" name="status">
+                            {% for opcao in status_opcoes %}
+                            <option value="{{ opcao }}" {{ 'selected' if tarefa_status == opcao else '' }}>
+                                {{ status_labels[opcao] }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('tarefas.dashboard') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Voltar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

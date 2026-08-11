@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Entrar{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 mb-3 text-center">Entrar</h1>
+
+                {% if erro %}
+                <div class="alert alert-danger">{{ erro }}</div>
+                {% endif %}
+
+                <form method="POST" action="{{ url_for('auth.login') }}">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" required value="{{ email or '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="senha" name="senha" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-box-arrow-in-right"></i> Entrar
+                    </button>
+                </form>
+
+                <p class="text-center mt-3 mb-0">
+                    Não tem conta? <a href="{{ url_for('auth.registro') }}">Cadastre-se</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
